@@ -76,3 +76,14 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
+          - task: HelmDeploy@0
+            inputs:
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'Free Trial(ed7d869f-4203-49cf-9cff-929ac12bf295)'
+              azureResourceGroup: 'aksRG'
+              kubernetesCluster: 'aksercCluster'
+              namespace: 'ratingsapp'
+              command: 'install'
+              chartType: 'Name'
+              chartName: 'bitnami/mongodb'
+              overrideValues: 'auth.username=azureuser,auth.password=ercansah84,auth.database=ratingsdb'
