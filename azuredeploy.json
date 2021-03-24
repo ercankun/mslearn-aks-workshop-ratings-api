@@ -5,14 +5,37 @@
     "functions": [],
     "variables": {},
     "resources": [{
-        "name": "resourceGroup",
-        "type": "Microsoft.Resources/resourceGroups",
-        "apiVersion": "2019-10-01",
-        "location": "northeurope",
-        "dependsOn": [
-        ],
+        "name": "keyVault1erc",
+        "type": "Microsoft.KeyVault/vaults",
+        "apiVersion": "2016-10-01",
+        "location": "[resourceGroup().location]",
         "tags": {
-        }
+            "displayName": "keyVault1erc"
+        },
+        "properties": {
+            "enabledForDeployment": true,
+            "enabledForTemplateDeployment": true,
+            "enabledForDiskEncryption": true,
+            "tenantId": "0c7a464c-7e83-497d-8da0-4c1b1ddf7d8a",
+
+            "sku": {
+                "name": "standard",
+                "family": "A"
+            }
+        },
+        "resources": [
+            {
+                "type": "secrets",
+                "name": "keyVaultSecret1",
+                "apiVersion": "2016-10-01",
+                "dependsOn": [
+                    "[resourceId('Microsoft.KeyVault/vaults', 'erc')]"
+                ],
+                "properties": {
+                    "value": "secretValue"
+                }
+            }
+        ]
     }],
     "outputs": {}
 }
