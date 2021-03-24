@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: ercankunmslearnaksworkshopratingsapi 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ercankunmslearnaksworkshopratingsapi
+  template:
+    metadata:
+      labels:
+        app: ercankunmslearnaksworkshopratingsapi 
+    spec:
+      containers:
+        - name: ercankunmslearnaksworkshopratingsapi 
+          image: acrerc.azurecr.io/ercankunmslearnaksworkshopratingsapi
+          ports:
+          - containerPort: 3000
