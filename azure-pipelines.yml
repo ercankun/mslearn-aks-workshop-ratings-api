@@ -100,6 +100,6 @@ stages:
               resourceGroupName: 'ercan'
               location: 'North Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '$(System.DefaultWorkingDirectory)'
+              csmFile: '$(System.DefaultWorkingDirectory)/azuredeploy.json'
               deploymentMode: 'Incremental'
 
