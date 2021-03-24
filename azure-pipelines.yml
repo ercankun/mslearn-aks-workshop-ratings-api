@@ -85,6 +85,6 @@ stages:
               resourceGroupName: 'aksRG'
               location: 'North Europe'
               templateLocation: 'Linked artifact'
-              csmFile: 'azuredeploy.json'
-              csmParametersFile: 'azuredeploy.parameters.json'
+              csmFile: '$(Pipeline.Workspace)/azuredeploy.json'
+              csmParametersFile: '$(Pipeline.Workspace)/azuredeploy.parameters.json'
               deploymentMode: 'Incremental'
