@@ -1,3 +1,8 @@
+
+
+
+
+
 # Deploy to Azure Kubernetes Service
 # Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
@@ -12,7 +17,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '7c40d05b-e845-49ce-981a-12035ec0a086'
-  imageRepository: 'ercankunmslearnaksworkshopratingsapi'
+  imageRepository: 'ratings-api:v1'
   containerRegistry: 'acrerc.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
@@ -79,7 +84,17 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Free Trial(ed7d869f-4203-49cf-9cff-929ac12bf295)'
+              subscriptionId: 'ed7d869f-4203-49cf-9cff-929ac12bf295'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'ssss'
+              location: 'North Europe'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(Pipeline.Workspace)'
+              deploymentMode: 'Incremental'
   - deployment: DeployPullRequest
     displayName: Deploy Pull request
     condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/pull/'))
