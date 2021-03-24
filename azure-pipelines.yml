@@ -94,6 +94,7 @@ stages:
           - task: AzureResourceManagerTemplateDeployment@3
             inputs:
               deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Free Trial(ed7d869f-4203-49cf-9cff-929ac12bf295)'
               subscriptionId: 'ed7d869f-4203-49cf-9cff-929ac12bf295'
               action: 'Create Or Update Resource Group'
               resourceGroupName: 'ercan'
