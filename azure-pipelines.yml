@@ -99,6 +99,6 @@ stages:
               resourceGroupName: 'ercan'
               location: 'North Europe'
               templateLocation: 'Linked artifact'
-              csmFile: '/'
+              csmFile: '$(System.DefaultWorkingDirectory)'
               deploymentMode: 'Incremental'
 
