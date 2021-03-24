@@ -77,3 +77,28 @@ stages:
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
 
+- stage: ResourceGroup
+  displayName: RG stage
+  dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'ResourceGroup'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureResourceManagerTemplateDeployment@3
+            inputs:
+              deploymentScope: 'Resource Group'
+              subscriptionId: 'ed7d869f-4203-49cf-9cff-929ac12bf295'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'ercan'
+              location: 'North Europe'
+              templateLocation: 'Linked artifact'
+              csmFile: '/'
+              deploymentMode: 'Incremental'
+
