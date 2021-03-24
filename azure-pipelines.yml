@@ -101,5 +101,6 @@ stages:
               location: 'North Europe'
               templateLocation: 'Linked artifact'
               csmFile: '$(System.DefaultWorkingDirectory)/azuredeploy.json'
+              csmParametersFile: '$(System.DefaultWorkingDirectory)/azuredeploy.parameters.json'
               deploymentMode: 'Incremental'
 
