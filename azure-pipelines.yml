@@ -76,14 +76,15 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-          - task: HelmDeploy@0
+          - task: AzureResourceManagerTemplateDeployment@3
             inputs:
-              connectionType: 'Azure Resource Manager'
-              azureSubscription: 'Free Trial(ed7d869f-4203-49cf-9cff-929ac12bf295)'
-              azureResourceGroup: 'aksRG'
-              kubernetesCluster: 'aksercCluster'
-              namespace: 'ratingsapp'
-              command: 'install'
-              chartType: 'Name'
-              chartName: 'bitnami/mongodb'
-              overrideValues: 'auth.username=azureuser,auth.password=ercansah84,auth.database=ratingsdb'
+              deploymentScope: 'Resource Group'
+              azureResourceManagerConnection: 'Free Trial(ed7d869f-4203-49cf-9cff-929ac12bf295)'
+              subscriptionId: 'ed7d869f-4203-49cf-9cff-929ac12bf295'
+              action: 'Create Or Update Resource Group'
+              resourceGroupName: 'aksRG'
+              location: 'North Europe'
+              templateLocation: 'Linked artifact'
+              csmFile: '$(System.DefaultWorkingDirectory)/azuredeploy.json'
+              csmParametersFile: '$(System.DefaultWorkingDirectory)/azuredeploy.parameters.json'
+              deploymentMode: 'Incremental'
